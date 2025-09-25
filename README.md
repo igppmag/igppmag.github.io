@@ -1,2 +1,4 @@
 # igppmag.github.io
-Recent research results
+Recent research results for quick view w/o credential tokens
+
+updates
