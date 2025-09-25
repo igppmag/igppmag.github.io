@@ -1,0 +1,67 @@
+<body><center>
+<img height=310 src="1758652420749-035db475-c93b-4bc3-938f-9c3664cd3965_7.jpg" width=276><br><br><form action="/search" name=f>
+</center></body></html>
+
+
+<HTML>
+<TITLE> Yingdong Jia </TITLE>
+
+<center>
+<h1>Ying-Dong Jia's Home Page</h1>
+
+<p>
+<A HREF="Res.html">
+Recent Research Results
+</A>
+</p>
+
+<p><A HREF="links.html">Links</A></p>
+<div class="view-counter" aria-live="polite">
+  <span>Views:</span> <strong id="view-count">—</strong>
+</div>
+ 
+<A HREF="Lucas"><IMG SRC=Lucas/IMG_1284R.jpg height=130 width=110 ><br>
+</A>
+
+</center>
+<script>
+(function () {
+  const el = document.getElementById('view-count');
+
+  // Change these to anything stable for your site:
+  const NAMESPACE = 'your-site-or-repo-name'; // e.g., example.com or my-github-pages
+  const KEY = 'index';                         // e.g., page identifier
+
+  const url = `https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      if (!data || typeof data.value !== 'number') throw new Error('Bad response');
+      el.textContent = data.value.toLocaleString();
+    })
+    .catch(() => {
+      // Fallback: per-browser local counter if the external service is blocked
+      try {
+        const k = 'local-view-count';
+        const v = (parseInt(localStorage.getItem(k) || '0', 10) + 1);
+        localStorage.setItem(k, v);
+        el.textContent = `${v.toLocaleString()} (local)`;
+      } catch {
+        el.textContent = 'N/A';
+      }
+    });
+})();
+</script>
+
+<style>
+.view-counter { font: 14px/1.3 system-ui, sans-serif; color:#444 }
+.view-counter strong { font-weight:600 }
+</style>
+
+  
+</body>
+  
+</HTML>
+
+
