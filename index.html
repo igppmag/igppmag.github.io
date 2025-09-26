@@ -1,0 +1,109 @@
+
+<HTML>
+<TITLE> Yingdong Jia </TITLE>
+
+<head>
+  <meta charset="utf-8" />
+  <title>The belief: Hall MHD Equations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- MathJax for LaTeX rendering -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --fg:#1f2937; --muted:#4b5563; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+           margin: 2rem; color: var(--fg); line-height: 1.5; }
+    h1 { margin-bottom: .25rem; }
+    p.note { color: var(--muted); margin-top: 0; }
+    .block { margin: 1.25rem 0; }
+    hr { border: 0; border-top: 1px solid #e5e7eb; margin: 2rem 0; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; }
+  </style>
+</head>
+<body>
+
+  <h1>Religion: The Conservation Law</h1>
+  <p class="note">The Hall MHD model solves the following governing equations of ion mass density
+    \(\rho\), magnetic field \(\mathbf{B}\), ion bulk velocity \(\mathbf{u}\), ion pressure \(p\),
+    and electron pressure \(p_e\):</p>
+
+  <div class="block">
+    \[
+    \begin{aligned}
+    \frac{\partial \rho}{\partial t} + \nabla\!\cdot(\rho\,\mathbf{u}) &= 0
+      \\[6pt]
+    \rho\,\frac{\partial \mathbf{u}}{\partial t}
+      + \rho\,(\mathbf{u}\!\cdot\!\nabla)\mathbf{u}
+      &= -\nabla P - \nabla P_e + \mathbf{G} + \mathbf{J}\times\mathbf{B}
+      \\[6pt]
+    \frac{\partial P}{\partial t}
+      + (\mathbf{u}\!\cdot\!\nabla)P
+      + \gamma\,P\,\nabla\!\cdot\!\mathbf{u}
+      &= \mathbf{G}\!\cdot\!\mathbf{u} + \eta\,\mathbf{J}^{2}
+      \\[6pt]
+    \frac{\partial \mathbf{B}}{\partial t} &= -\,\nabla\times\mathbf{E}
+      \\[6pt]
+    \mathbf{E} &= -\,\mathbf{u}\times\mathbf{B}
+                 + \eta\,\mathbf{J}
+                 + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e}
+                 - \frac{\nabla P_e}{e\,n_e}
+    \end{aligned}
+    \]
+  </div>
+
+  <p class="note">Instead of the original form shown above, the BATSRUS code actrually solves the <A HREF="HMHDCons.html">conservative form</A> of these equations, by default.</p>
+
+  <hr />
+
+  <h2>Definitions</h2>
+  <div class="block">
+    \[
+    \begin{aligned}
+    \varepsilon &= \frac{p}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0},   n_e &= n = \frac{\rho}{m},\\[4pt]
+    \mathbf{J} &= \frac{1}{\mu_0}\,\nabla\times\mathbf{B},\\[4pt]
+    \mathbf{u}_e &= \mathbf{u} - \frac{\mathbf{J}}{e\,n_e}.
+    \end{aligned}
+    \]
+  </div>
+
+  <p class="note">
+    Notation: \(\mathbf{I}\) is the identity tensor, \(B^2=\mathbf{B}\cdot\mathbf{B}\),
+    \(\mu_0\) is the vacuum permeability, \(e\) is the elementary charge, and \(\gamma\) is the adiabatic index.
+  </p>
+
+</body>
+
+<center>
+<h1>Ying-Dong Jia's Recent Research Results
+</h1></center>
+
+<body><center>
+<img src="1758652420749-035db475-c93b-4bc3-938f-9c3664cd3965_6.jpg" width=800><br><br><form action="/search" name=f>
+</center></body>
+
+<p><A HREF="OldSlds.html">Prior Slides</A></p>
+
+<body>Bookmark this to keep an eye on my project updates!</body>
+  
+<p><A HREF="links.html">Links</A></p>
+
+<div>Views: <strong id="views">—</strong></div>
+<script>
+  fetch('/api/views', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => { document.getElementById('views').textContent = d.value; })
+    .catch(() => { document.getElementById('views').textContent = 'N/A'; });
+</script>
+ 
+<A HREF="c"><IMG SRC="1758652420749-035db475-c93b-4bc3-938f-9c3664cd3965_1.jpg" width=810 ><br> </A>
+
+<style>
+.view-counter { font: 14px/1.3 system-ui, sans-serif; color:#444 }
+.view-counter strong { font-weight:600 }
+</style>
+  
+</HTML>
+
+
+
+
