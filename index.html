@@ -85,9 +85,9 @@
   
 <p><A HREF="links.html">Links</A></p>
 
-<div>Views: <strong id="views">—</strong></div>
+<div class="view-counter">Views: <strong id="views">—</strong></div>
 <script>
-  fetch('/views', { cache: 'no-store' })
+  fetch('http://localhost:3000/views', { cache: 'no-store' })
     .then(r => r.json())
     .then(d => { document.getElementById('views').textContent = d.value; })
     .catch(() => { document.getElementById('views').textContent = 'N/A'; });
