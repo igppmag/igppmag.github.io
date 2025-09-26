@@ -35,26 +35,22 @@
     \[
     \begin{aligned}
     \frac{\partial \rho}{\partial t} + \nabla\!\cdot(\rho\,\mathbf{u}) &= 0
-      \\[6pt]
-    \frac{\partial (\rho \mathbf{u})}{\partial t}
-      + \nabla\!\cdot\!\left[\;\mathbf{u}\,\rho\,\mathbf{u}
-      + \mathbf{I}\,p
-      + \mathbf{I}\,\frac{B^2}{2\mu_0}
-      - \frac{\mathbf{B}\mathbf{B}}{\mu_0}\right]
-      &= \rho\,\mathbf{g}
-      \\[6pt]
-    \frac{\partial \varepsilon}{\partial t}
-      + \nabla\!\cdot\!\left[
-        \mathbf{u}\!\left(\varepsilon + p - \frac{B^2}{2\mu_0}\right)
-        + (\mathbf{u}+\mathbf{u}_H)\!\cdot\!\frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}
-        - \mathbf{B}\times\eta\,\mathbf{J}
-      \right] &= 0
-      \\[6pt]
-    \frac{\partial p_e}{\partial t} + \nabla\!\cdot(p_e\,\mathbf{u}_e)
-      &= (1-\gamma)\,p_e\,\nabla\!\cdot\mathbf{u}_e
-      \\[6pt]
+      \tag{1}\\[6pt]
+    \rho\,\frac{\partial \mathbf{u}}{\partial t}
+      + \rho\,(\mathbf{u}\!\cdot\!\nabla)\mathbf{u}
+      &= -\nabla P - \nabla P_e + \mathbf{G} + \mathbf{J}\times\mathbf{B}
+      \tag{2}\\[6pt]
+    \frac{\partial P}{\partial t}
+      + (\mathbf{u}\!\cdot\!\nabla)P
+      + \gamma\,P\,\nabla\!\cdot\!\mathbf{u}
+      &= \mathbf{G}\!\cdot\!\mathbf{u} + \eta\,\mathbf{J}^{2}
+      \tag{3}\\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} &= -\,\nabla\times\mathbf{E}
-      
+      \tag{4}\\[6pt]
+    \mathbf{E} &= -\,\mathbf{u}\times\mathbf{B}
+                 + \eta\,\mathbf{J}
+                 + \frac{\mathbf{J}\times\mathbf{B}}{e\,n}
+      \tag{5}
     \end{aligned}
     \]
   </div>
@@ -108,7 +104,7 @@
   const el = document.getElementById('view-count');
 
   // Change these to anything stable for your site:
-  const NAMESPACE = 'my-github-page'; // e.g., example.com or my-github-pages
+  const NAMESPACE = 'igppmag.github.io'; // e.g., example.com or my-github-pages
   const KEY = 'index';                         // e.g., page identifier
 
   const url = `https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`;
