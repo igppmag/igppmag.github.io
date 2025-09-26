@@ -85,13 +85,9 @@
   
 <p><A HREF="links.html">Links</A></p>
 
-<div class="view-counter">Views: <strong id="views">—</strong></div>
-<script>
-  fetch('http://localhost:3000/views', { cache: 'no-store' })
-    .then(r => r.json())
-    .then(d => { document.getElementById('views').textContent = d.value; })
-    .catch(() => { document.getElementById('views').textContent = 'N/A'; });
-</script>
+<a href="https://hits.sh/igppmag.github.io/">
+  <img alt="Visits" src="https://hits.sh/igppmag.github.io.svg?style=flat-square&label=visits">
+</a>
  
 <A HREF="c"><IMG SRC="1758652420749-035db475-c93b-4bc3-938f-9c3664cd3965_1.jpg" width=810 ><br> </A>
 
