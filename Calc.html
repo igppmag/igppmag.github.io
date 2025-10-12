@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Space Plasma Quick Calculator (d_i, r_g, V_A, C_s)</title>
+<style>
+  :root { --fg:#1f2937; --muted:#6b7280; --accent:#2563eb; }
+  body { font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--fg); margin:2rem; }
+  h1 { font-size:1.4rem; margin-bottom:.75rem; }
+  h2 { font-size:1.15rem; margin:1.6rem 0 .75rem; }
+  .card { max-width:820px; padding:1rem 1.25rem; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+  .row { display:flex; gap:.75rem; align-items:end; flex-wrap:wrap; }
+  .field { flex:1 1 220px; min-width:220px; }
+  label { display:block; font-weight:600; margin-bottom:.35rem; }
+  input, select { width:100%; padding:.55rem .65rem; border:1px solid #d1d5db; border-radius:8px; font:inherit; }
+  .btn { padding:.6rem 1rem; border-radius:8px; border:0; background:var(--accent); color:#fff; cursor:pointer; font-weight:600; }
+  .btn:disabled { opacity:.6; cursor:not-allowed; }
+  .muted { color:var(--muted); font-size:.92rem; }
+  .out { margin-top:1rem; padding:.75rem 1rem; background:#f9fafb; border:1px solid #eef2f7; border-radius:10px; }
+  .grid { display:grid; grid-template-columns: 1fr auto; gap:.35rem 1rem; }
+  .val { font-weight:700; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Space Plasma Quick Calculator</h1>
+    <p class="muted">Shared inputs below are used by all calculators. Units: \(n_i\) in cm⁻³, \(B\) in nT, \(v_\perp\) in km/s, \(T_i\) in K, custom mass in amu.</p>
+
+    <!-- Shared inputs -->
+    <h2>Shared Inputs</h2>
+    <div class="row">
+      <div class="field">
+        <label for="ni">Ion number density \(n_i\) (cm⁻³)</label>
+        <input id="ni" type="number" step="any" placeholder="e.g. 10" value="10" />
+      </div>
+
+      <div class="field">
+        <label for="ionSel">Ion species (for \(m_i\))</label>
+        <select id="ionSel">
+          <option value="p">Proton (H⁺)</option>
+          <option value="he">He²⁺ (alpha)</option>
+          <option value="o">O⁺</option>
+          <option value="custom">Custom…</option>
+        </select>
+      </div>
+
+      <div class="field" id="customMassWrap" style="display:none;">
+        <label for="miAmu">Custom mass \(m_i\) (amu)</label>
+        <input id="miAmu" type="number" step="any" placeholder="e.g. 16 (for O⁺)" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="Bnt">Magnetic field \(B\) (nT)</label>
+        <input id="Bnt" type="number" step="any" placeholder="e.g. 10" value="10" />
+      </div>
+
+      <div class="field">
+        <label for="vi">Ion speed \(v_\perp\) (km/s)</label>
+        <input id="vi" type="number" step="any" placeholder="e.g. 400" value="400" />
+      </div>
+
+      <div class="field">
+        <label for="Ti">Ion temperature \(T_i\) (K)</label>
+        <input id="Ti" type="number" step="any" placeholder="e.g. 1e5" value="1e5" />
+      </div>
+
+      <div class="field">
+        <label for="Zi">Charge state \(Z\) (for \(r_g\))</label>
+        <input id="Zi" type="number" step="1" placeholder="e.g. 1" value="1" />
+      </div>
+    </div>
+
+    <!-- d_i -->
+    <h2>Ion Inertial Length \(d_i\)</h2>
+    <button class="btn" id="calc_di">Compute \(d_i\)</button>
+    <div class="out" id="out_di" hidden>
+      <div class="grid">
+        <div>\(d_i\) (assumes \(q=e\)):</div> <div class="val" id="di_km">— km</div>
+      </div>
+      <p class="muted">Formula: \(d_i=\sqrt{m_i/(\mu_0 e^2 n_i)}\) (singly charged assumption).</p>
+    </div>
+
+    <!-- r_g -->
+    <h2>Ion Gyroradius \(r_g\)</h2>
+    <button class="btn" id="calc_rg">Compute \(r_g\)</button>
+    <div class="out" id="out_rg" hidden>
+      <div class="grid">
+        <div>\(r_g\) (assumes \(v_\perp = v\)):</div> <div class="val" id="rg_km">— km</div>
+      </div>
+      <p class="muted">Formula: \(r_g = \dfrac{m_i v_\perp}{Z e B}\).</p>
+    </div>
+
+    <!-- VA & Cs -->
+    <h2>MHD Speeds: \(V_A\) & \(C_s\)</h2>
+    <button class="btn" id="calc_mhd">Compute \(V_A\) & \(C_s\)</button>
+    <div class="out" id="out_mhd" hidden>
+      <div class="grid">
+        <div>Alfv&eacute;n speed \(V_A\):</div> <div class="val" id="vA_kms">— km/s</div>
+        <div>Ion sound speed \(C_s\):</div> <div class="val" id="Cs_kms">— km/s</div>
+      </div>
+      <p class="muted">Formulas: \(V_A=\dfrac{B}{\sqrt{\mu_0 \rho}}\), \(\rho=m_i n_i\); \(C_s=\sqrt{\gamma k_B T_i/m_i}\) (ion-only).</p>
+    </div>
+  </div>
+
+<script>
+(function(){
+  // --- Constants (SI) ---
+  const MU0 = 4 * Math.PI * 1e-7;          // H/m
+  const GAMMA = 5/3;
+  const KB = 1.380649e-23;                 // J/K
+  const QE  = 1.602176634e-19;             // C
+  const AMU = 1.66053906660e-27;           // kg
+  const M_p = 1.007276466621 * AMU;        // kg
+  const M_He= 4.001506179127 * AMU;        // kg
+  const M_O = 15.99491461957  * AMU;       // kg
+
+  // Pretty formatter (~3 sig figs)
+  function fmt(x, unit='') {
+    if (!Number.isFinite(x)) return '—';
+    const abs = Math.abs(x);
+    const s = (abs >= 1e3 || abs < 1e-1)
+      ? x.toExponential(2)
+      : x.toLocaleString(undefined, { maximumSignificantDigits: 3 });
+    return unit ? `${s} ${unit}` : s;
+  }
+
+  // Ion mass from selector + optional custom AMU
+  function ionMass(selValue, customAmuVal) {
+    switch (selValue) {
+      case 'p':  return M_p;
+      case 'he': return M_He;
+      case 'o':  return M_O;
+      case 'custom': {
+        const a = parseFloat(customAmuVal);
+        return (Number.isFinite(a) && a > 0) ? a * AMU : NaN;
+      }
+      default:   return M_p;
+    }
+  }
+
+  // Hook up shared ion selector visibility
+  const ionSel = document.getElementById('ionSel');
+  const customMassWrap = document.getElementById('customMassWrap');
+  ionSel.addEventListener('change', () => {
+    customMassWrap.style.display = (ionSel.value === 'custom') ? '' : 'none';
+  });
+
+  // Helpers to read shared inputs safely
+  function readShared() {
+    const ni_cm3 = parseFloat(document.getElementById('ni').value);   // cm^-3
+    const B_nt   = parseFloat(document.getElementById('Bnt').value);  // nT
+    const v_kms  = parseFloat(document.getElementById('vi').value);   // km/s
+    const Ti_K   = parseFloat(document.getElementById('Ti').value);   // K
+    const Zi     = parseInt(document.getElementById('Zi').value, 10); // charge state
+    const mi     = ionMass(ionSel.value, document.getElementById('miAmu').value);
+
+    return { ni_cm3, B_nt, v_kms, Ti_K, Zi, mi };
+  }
+
+  // --- d_i ---
+  document.getElementById('calc_di').addEventListener('click', () => {
+    const { ni_cm3, mi } = readShared();
+    const out = document.getElementById('out_di');
+    const di_km = document.getElementById('di_km');
+
+    if (!Number.isFinite(ni_cm3) || ni_cm3 <= 0 || !Number.isFinite(mi)) {
+      out.hidden = false; di_km.textContent = '— km'; return;
+    }
+    const n_si = ni_cm3 * 1e6; // m^-3
+    // Assumes q = e (singly charged), per your requested form
+    const di = Math.sqrt(mi / (MU0 * QE * QE * n_si)); // m
+    out.hidden = false;
+    di_km.textContent = fmt(di/1000, 'km');
+  });
+
+  // --- r_g ---
+  document.getElementById('calc_rg').addEventListener('click', () => {
+    const { mi, v_kms, B_nt, Zi } = readShared();
+    const out = document.getElementById('out_rg');
+    const rg_km = document.getElementById('rg_km');
+
+    if (!Number.isFinite(v_kms) || v_kms <= 0 ||
+        !Number.isFinite(B_nt)  || B_nt  <= 0 ||
+        !Number.isFinite(mi)    || !Number.isFinite(Zi) || Zi <= 0) {
+      out.hidden = false; rg_km.textContent = '— km'; return;
+    }
+    const v = v_kms * 1e3;   // m/s
+    const B = B_nt  * 1e-9;  // T
+    const rg = mi * v / (Zi * QE * B); // m (assumes v⊥ = v)
+    out.hidden = false;
+    rg_km.textContent = fmt(rg/1000, 'km');
+  });
+
+  // --- V_A & C_s ---
+  document.getElementById('calc_mhd').addEventListener('click', () => {
+    const { ni_cm3, mi, B_nt, Ti_K } = readShared();
+    const out  = document.getElementById('out_mhd');
+    const vAel = document.getElementById('vA_kms');
+    const Csel = document.getElementById('Cs_kms');
+
+    if (!Number.isFinite(ni_cm3) || ni_cm3 <= 0 ||
+        !Number.isFinite(B_nt)   || B_nt   <= 0 ||
+        !Number.isFinite(mi)     || mi     <= 0 ||
+        !Number.isFinite(Ti_K)   || Ti_K   <= 0) {
+      out.hidden = false; vAel.textContent = '— km/s'; Csel.textContent = '— km/s'; return;
+    }
+
+    const n = ni_cm3 * 1e6;      // m^-3
+    const rho = n * mi;          // kg/m^3
+    const B = B_nt * 1e-9;       // T
+    const VA = B / Math.sqrt(MU0 * rho);           // m/s
+    const Cs = Math.sqrt(GAMMA * KB * Ti_K / mi);  // m/s (ion-only)
+
+    out.hidden = false;
+    vAel.textContent = fmt(VA/1000, 'km/s');
+    Csel.textContent = fmt(Cs/1000, 'km/s');
+  });
+})();
+</script>
+</body>
+</html>
