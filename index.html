@@ -94,22 +94,30 @@
   
 <p><A HREF="links.html">More Links--under construction</A></p>
 
-<!-- Replace USERNAME/REPO (or your custom domain) -->
-<div class="counter-wrap">
-  <a href="https://hits.sh/igppmag.github.io/">
+<section id="contact" class="about contact-row">
+  <div class="contact-info">
+    <h2>Contact Me</h2>
+    <p>yingdong at ucla.edu · Address: Slichter Hall 6873, 595 Charles E Young Dr E, Los Angeles, CA 90095.</p>
+  </div>
+
+  <a href="https://hits.sh/igppmag.github.io/" class="counter">
     <img
       src="https://hits.sh/igppmag.github.io.svg?style=flat-square&label=visits"
-      alt="visits" class="hits-badge">
+      alt="visits">
   </a>
-</div>
+</section>
 
 <style>
-  .counter-wrap{
-    display:flex; justify-content:center; align-items:center;
-    margin:1rem 0;
+  .contact-row{
+    display:flex; align-items:center; gap:1rem; margin:1rem 0; flex-wrap:wrap;
   }
-  /* “2 levels bigger” — scale the badge height */
-  .hits-badge{ height: 40px; } /* tweak: 32–48px looks good */
+  .contact-info{ flex:1 1 auto; }
+  .counter img{ height:40px; display:block; }
+
+  /* Keep a single row on wider screens, wrap on small ones */
+  @media (min-width: 640px){
+    .contact-row{ flex-wrap:nowrap; }
+  }
 </style>
   
 </HTML>
