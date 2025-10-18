@@ -76,6 +76,17 @@
       </div>
     </div>
 
+    <!-- VA & Cs -->
+    <h2>MHD Speeds: \(V_A\) & \(C_s\)</h2>
+    <button class="btn" id="calc_mhd">Compute \(V_A\) & \(C_s\)</button>
+    <div class="out" id="out_mhd" hidden>
+      <div class="grid">
+        <div>Alfv&eacute;n speed \(V_A\):</div> <div class="val" id="vA_kms">— km/s</div>
+        <div>Ion sound speed \(C_s\):</div> <div class="val" id="Cs_kms">— km/s</div>
+      </div>
+      <p class="muted">Formulas: \(V_A=\dfrac{B}{\sqrt{\mu_0 \rho}}\), \(\rho=m_i n_i\); \(C_s=\sqrt{\gamma k_B T_i/m_i}\) (ion-only).</p>
+    </div>
+
     <!-- d_i -->
     <h2>Ion Inertial Length \(d_i\)</h2>
     <button class="btn" id="calc_di">Compute \(d_i\)</button>
@@ -96,17 +107,21 @@
       <p class="muted">Formula: \(r_g = \dfrac{m_i v_\perp}{Z e B}\).</p>
     </div>
 
-    <!-- VA & Cs -->
-    <h2>MHD Speeds: \(V_A\) & \(C_s\)</h2>
-    <button class="btn" id="calc_mhd">Compute \(V_A\) & \(C_s\)</button>
-    <div class="out" id="out_mhd" hidden>
-      <div class="grid">
-        <div>Alfv&eacute;n speed \(V_A\):</div> <div class="val" id="vA_kms">— km/s</div>
-        <div>Ion sound speed \(C_s\):</div> <div class="val" id="Cs_kms">— km/s</div>
-      </div>
-      <p class="muted">Formulas: \(V_A=\dfrac{B}{\sqrt{\mu_0 \rho}}\), \(\rho=m_i n_i\); \(C_s=\sqrt{\gamma k_B T_i/m_i}\) (ion-only).</p>
-    </div>
+<h2 style="margin-top:2rem;">Gyrofrequency \(\Omega_i\) & \(\Omega_e\)</h2>
+<div class="row">
+  <!-- Reuses shared B (id="Bnt") and the ion selector used above -->
+  <button class="btn" id="calcOmega">Compute \(\Omega_i\) & \(\Omega_e\)</button>
+</div>
+
+<div class="out" id="outOmega" hidden>
+  <div class="grid">
+    <div>Ion gyrofrequency \(\Omega_i\) (rad/s):</div> <div class="val" id="omega_i_rad">—</div>
+    <div>Ion gyrofrequency \(f_i\) (Hz):</div>         <div class="val" id="omega_i_hz">—</div>
+    <div>Electron gyrofrequency \(\Omega_e\) (rad/s):</div> <div class="val" id="omega_e_rad">—</div>
+    <div>Electron gyrofrequency \(f_e\) (Hz):</div>         <div class="val" id="omega_e_hz">—</div>
   </div>
+</div>
+</div>
 
 <script>
 (function(){
@@ -119,6 +134,7 @@
   const M_p = 1.007276466621 * AMU;        // kg
   const M_He= 4.001506179127 * AMU;        // kg
   const M_O = 15.99491461957  * AMU;       // kg
+  const M_e = 9.1093837015e-31; // kg, electron mass
 
   // Pretty formatter (~3 sig figs)
   function fmt(x, unit='') {
@@ -221,6 +237,39 @@
     vAel.textContent = fmt(VA/1000, 'km/s');
     Csel.textContent = fmt(Cs/1000, 'km/s');
   });
+
+// --- Gyrofrequency handler ---
+const btnOmega = document.getElementById('calcOmega');
+btnOmega?.addEventListener('click', () => {
+  // Reuse your shared inputs:
+    const { ni_cm3, mi, B_nt, Ti_K } = readShared();
+  const ZInput  = document.getElementById('Zi'); // if absent, Z defaults to species
+
+  const outBox = document.getElementById('outOmega');
+  const oi_rad = document.getElementById('omega_i_rad');
+  const oi_hz  = document.getElementById('omega_i_hz');
+  const oe_rad = document.getElementById('omega_e_rad');
+  const oe_hz  = document.getElementById('omega_e_hz');
+
+  if (!Number.isFinite(B_nt) || B_nt <= 0 || !Number.isFinite(mi) ) {
+    if (outBox) outBox.hidden = false;
+    oi_rad.textContent = oi_hz.textContent = oe_rad.textContent = oe_hz.textContent = '—';
+    return;
+  }
+
+  const B = B_nt * 1e-9;                 // Tesla
+  const omega_i = Math.abs( QE * B / mi); // rad/s
+  const fi      = omega_i / (2*Math.PI);     // Hz
+  const omega_e = Math.abs(QE * B / M_e);    // rad/s (magnitude)
+  const fe      = omega_e / (2*Math.PI);     // Hz
+
+  if (outBox) outBox.hidden = false;
+  oi_rad.textContent = fmt(omega_i, 'rad/s');
+  oi_hz.textContent  = fmt(fi, 'Hz');
+  oe_rad.textContent = fmt(omega_e, 'rad/s');
+  oe_hz.textContent  = fmt(fe, 'Hz');
+});
+
 })();
 </script>
 </body>
