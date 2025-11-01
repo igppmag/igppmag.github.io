@@ -87,6 +87,20 @@
       <p class="muted">Formulas: \(V_A=\dfrac{B}{\sqrt{\mu_0 \rho}}\), \(\rho=m_i n_i\); \(C_s=\sqrt{\gamma k_B T_i/m_i}\) (ion-only).</p>
     </div>
 
+<h2 style="margin-top:2rem;">Plasma β and Ion Thermal Speed</h2>
+<div class="row">
+  <button class="btn" id="calcBeta">Compute β & \(v_{th,i}\)</button>
+</div>
+
+<div class="out" id="outBeta" hidden>
+  <div class="grid">
+    <div>Plasma β:</div>
+      <div class="val" id="beta_i">—</div>
+    <div>Ion thermal speed \(v_{th,i}=\sqrt{2kT_i/m_i}\):</div>
+      <div class="val" id="vthi_kms">— km/s</div>
+  </div>
+</div>
+
     <!-- d_i -->
     <h2>Ion Inertial Length \(d_i\)</h2>
     <button class="btn" id="calc_di">Compute \(d_i\)</button>
@@ -107,7 +121,7 @@
       <p class="muted">Formula: \(r_g = \dfrac{m_i v_\perp}{Z e B}\).</p>
     </div>
 
-<h2 style="margin-top:2rem;">Gyrofrequency \(\Omega_i\) & \(\Omega_e\); with lower hybrid frequency \(= \sqrt{\Omega_i Omega_e}\)</h2>
+<h2 style="margin-top:2rem;">Gyrofrequency \(\Omega_i\) & \(\Omega_e\); with lower hybrid frequency \(= \sqrt{\Omega_i \Omega_e}\)</h2>
 <div class="row">
   <!-- Reuses shared B (id="Bnt") and the ion selector used above -->
   <button class="btn" id="calcOmega">Compute \(\Omega_i\) & \(\Omega_e\)</button>
@@ -269,6 +283,47 @@ btnOmega?.addEventListener('click', () => {
   oe_rad.textContent = fmt(omega_e, 'rad/s');
   oe_hz.textContent  = fmt(fe, 'Hz');
 });
+
+// --- Plasma beta & ion thermal speed ---
+const btnBeta = document.getElementById('calcBeta');
+btnBeta?.addEventListener('click', () => {
+    const { mi, v_kms, B_nt, Zi, Ti_K, ni_cm3 } = readShared();
+  // Reuse ion species from your shared selector for mass
+
+  const out     = document.getElementById('outBeta');
+  const betaIEl = document.getElementById('beta_i');
+  const betaTEl = document.getElementById('beta_tot');
+  const vthEl   = document.getElementById('vthi_kms');
+
+  if (!Number.isFinite(ni_cm3) || ni_cm3 <= 0 ||
+      !Number.isFinite(B_nt)   || B_nt   <= 0 ||
+      !Number.isFinite(Ti_K)    || Ti_K    <= 0 ||
+      !Number.isFinite(mi)) {
+    if (out) out.hidden = false;
+    if (betaIEl) betaIEl.textContent = '—';
+    if (betaTEl) betaTEl.textContent = '—';
+    if (vthEl)   vthEl.textContent   = '— km/s';
+    return;
+  }
+
+  const n   = ni_cm3 * 1e6;     // m^-3
+  const B   = B_nt    * 1e-9;   // T
+  const p_i = n * KB * Ti_K;     // Pa = n k T_i
+
+  // β_i = 2 μ0 p_i / B^2  (scalar, isotropic)
+  const beta_i  = (2 * MU0 * p_i) / (B * B);
+  // Total β (ions + electrons); if Te=Ti, p_e = p_i
+  const beta_tot = includeE ? (2 * MU0 * (p_i + p_i)) / (B * B) : beta_i;
+
+  // Ion thermal speed (most probable): v_th,i = sqrt(2 k T_i / m_i)
+  const vth_i = Math.sqrt(2 * K0 * TiK / mi); // m/s
+
+  if (out) out.hidden = false;
+  if (betaIEl) betaIEl.textContent = fmt(beta_i);
+  if (betaTEl) betaTEl.textContent = includeE ? fmt(beta_tot) : '—';
+  if (vthEl)   vthEl.textContent   = fmt(vth_i / 1000, 'km/s');
+});
+
 
 })();
 </script>
