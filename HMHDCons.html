@@ -35,8 +35,8 @@
       \\[6pt]
     \frac{\partial \varepsilon}{\partial t}
       + \nabla\!\cdot\!\left[
-        \mathbf{u}\!\left(\varepsilon + p - \frac{B^2}{2\mu_0}\right)
-        + (\mathbf{u}+\mathbf{u}_H)\!\cdot\!\frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}
+        \!\left(\varepsilon + p - \frac{B^2}{2\mu_0}\right)\mathbf{u}
+        + \frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
         - \mathbf{B}\times\eta\,\mathbf{J}
       \right] &= 0
       \\[6pt]
@@ -49,7 +49,41 @@
     \]
   </div>
 
+  <h2>A more complete conservative form without neglecting the Pe terms:</h2>
+  <div class="block">
+    \[
+    \begin{aligned}
+    \frac{\partial \rho}{\partial t} + \nabla\!\cdot(\rho\,\mathbf{u}) &= 0
+      \\[6pt]
+    \frac{\partial (\rho \mathbf{u})}{\partial t}
+      + \nabla\!\cdot\!\left[\;\mathbf{u}\,\rho\,\mathbf{u}
+      + \mathbf{I}\,p + \mathbf{I}\,p_e
+      + \mathbf{I}\,\frac{B^2}{2\mu_0}
+      - \frac{\mathbf{B}\mathbf{B}}{\mu_0}\right]
+      &= \rho\,\mathbf{g}
+      \\[6pt]
+    \frac{\partial \varepsilon}{\partial t}
+      + \nabla\!\cdot\!\left[
+        \!\left(\varepsilon + p - \frac{B^2}{2\mu_0}\right)\mathbf{u}
+        + \!\frac{ \gamma \, p_e}{\gamma-1} \mathbf{u}_e
+        + \frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
+        - \mathbf{B}\times\left( \eta\,\mathbf{J} - \frac{\nabla P_e}{e\,n_e} \right)
+      \right] &= 0
+      \\[6pt]
+    \frac{\partial p_e}{\partial t} + \nabla\!\cdot(p_e\,\mathbf{u}_e)
+      &= (1-\gamma)(\,p_e\,\nabla\!\cdot\mathbf{u}_e-\eta J^2)
+      \\[6pt]
+    \frac{\partial \mathbf{B}}{\partial t} &= -\,\nabla\times\mathbf{E}
+      
+    \end{aligned}
+    \]
+  </div>
+<p>
+Now \(p\) is determined by the total energy eqn in conservative form, with the electron energy eqn that advances \(p_e\).
+</p>
+
   <h2>Sometimes we may also play with these equations</h2>
+
   <div class="block">
     \[
     \begin{aligned}
