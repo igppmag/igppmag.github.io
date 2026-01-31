@@ -136,8 +136,7 @@
   <div class="grid">
     <div>Ion gyrofrequency \(\Omega_i\) (rad/s):</div> <div class="val" id="omega_i_rad">—</div>
     <div>Ion gyrofrequency \(f_i\) (Hz):</div>         <div class="val" id="omega_i_hz">—</div>
-    <div>Electron gyrofrequency \(\Omega_e\) (rad/s):</div> <div class="val" id="omega_e_rad">—</div>
-    <div>Electron gyrofrequency \(f_e\) (Hz):</div>         <div class="val" id="omega_e_hz">—</div>
+    <div>Ion gyro Period \(T_{gi}\) (s):</div> <div class="val" id="T_i_s">—</div>
   </div>
 </div>
 </div>
@@ -257,40 +256,45 @@
     Csel.textContent = fmt(Cs/1000, 'km/s');
   });
 
-// --- Gyrofrequency handler ---
+// --- Ion gyrofrequency + gyroperiod handler ---
 const btnOmega = document.getElementById('calcOmega');
 btnOmega?.addEventListener('click', () => {
   // Reuse your shared inputs:
-    const { ni_cm3, mi, B_nt, Ti_K } = readShared();
-  const ZInput  = document.getElementById('Zi'); // if absent, Z defaults to species
+  const { ni_cm3, mi, B_nt, Ti_K } = readShared();
+
+  // Optional charge state input (defaults to 1 if missing/invalid)
+  const ZInput = document.getElementById('Zi');
+  const Zi = (ZInput && Number.isFinite(parseFloat(ZInput.value)))
+    ? Math.abs(parseFloat(ZInput.value))
+    : 1;
 
   const outBox = document.getElementById('outOmega');
-  const oi_rad = document.getElementById('omega_i_rad');
-  const oi_hz  = document.getElementById('omega_i_hz');
-  const oe_rad = document.getElementById('omega_e_rad');
-  const oe_hz  = document.getElementById('omega_e_hz');
+  const oi_rad = document.getElementById('omega_i_rad'); // ion gyrofrequency (rad/s)
+  const oi_hz  = document.getElementById('omega_i_hz');  // ion gyrofrequency (Hz)
+  // Ion gyroperiod output (seconds)
+  const Ti_s   = document.getElementById('T_i_s');
 
-  if (!Number.isFinite(B_nt) || B_nt <= 0 || !Number.isFinite(mi) ) {
+  if (!Number.isFinite(B_nt) || B_nt <= 0 || !Number.isFinite(mi) || mi <= 0) {
     if (outBox) outBox.hidden = false;
-    oi_rad.textContent = oi_hz.textContent = oe_rad.textContent = oe_hz.textContent = '—';
+    if (oi_rad) oi_rad.textContent = '—';
+    if (oi_hz)  oi_hz.textContent  = '—';
+    if (Ti_s)   Ti_s.textContent   = '—';
     return;
   }
 
-  const B = B_nt * 1e-9;                 // Tesla
-  const omega_i = Math.abs( QE * B / mi); // rad/s
-  const fi      = omega_i / (2*Math.PI);     // Hz
-  const omega_e = Math.abs(QE * B / M_e);    // rad/s (magnitude)
-  const fe      = omega_e / (2*Math.PI);     // Hz
+  const B = B_nt * 1e-9;                      // Tesla
+  const omega_i = Math.abs(Zi * QE * B / mi); // rad/s
+  const fi = omega_i / (2 * Math.PI);         // Hz
+
+  // Ion gyroperiod: tau = 2π/ω = 1/f
+  const tau_s = (omega_i > 0) ? (2 * Math.PI / omega_i) : Infinity; // s
 
   if (outBox) outBox.hidden = false;
-  oi_rad.textContent = fmt(omega_i, 'rad/s');
-  oi_hz.textContent  = fmt(fi, 'Hz');
-  oe_rad.textContent = fmt(omega_e, 'rad/s');
-  oe_hz.textContent  = fmt(fe, 'Hz');
-});
 
-// --- Plasma beta & ion thermal speed ---
-const btnBeta = document.getElementById('calcBeta');
+  if (oi_rad) oi_rad.textContent = fmt(omega_i, 'rad/s');
+  if (oi_hz)  oi_hz.textContent  = fmt(fi, 'Hz');
+  if (Ti_s)   Ti_s.textContent   = fmt(tau_s, 's');
+}); 
 
 btnBeta?.addEventListener('click', () => {
     const { mi, v_kms, B_nt, Zi, Ti_K, ni_cm3 } = readShared();
@@ -327,5 +331,11 @@ btnBeta?.addEventListener('click', () => {
 
 })();
 </script>
+
+
+  <!-- should add Te, with defaught =Ti -->
+ 
 </body>
+
+
 </html>
