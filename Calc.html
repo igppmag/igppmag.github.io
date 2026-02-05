@@ -296,6 +296,7 @@ btnOmega?.addEventListener('click', () => {
   if (Ti_s)   Ti_s.textContent   = fmt(tau_s, 's');
 }); 
 
+const btnBeta = document.getElementById('calcBeta');
 btnBeta?.addEventListener('click', () => {
     const { mi, v_kms, B_nt, Zi, Ti_K, ni_cm3 } = readShared();
   // Reuse ion species from your shared selector for mass
