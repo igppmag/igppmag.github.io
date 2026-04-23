@@ -1,62 +1,512 @@
-
-<HTML>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Space Physics Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Space Plasma Research Group | UCLA</title>
+  <meta name="description" content="Space Plasma Research Group at UCLA: members, research interests, and contact information." />
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg-2:#0d1b2f;
+      --panel:rgba(15, 26, 46, 0.72);
+      --panel-strong:rgba(18, 32, 56, 0.9);
+      --text:#ecf4ff;
+      --muted:#b8c7dc;
+      --line:rgba(180, 212, 255, 0.18);
+      --accent:#78c9ff;
+      --accent-2:#c68cff;
+      --accent-3:#9effd8;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:20px;
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(120,201,255,.16), transparent 0 26rem),
+        radial-gradient(circle at 80% 18%, rgba(198,140,255,.14), transparent 0 22rem),
+        radial-gradient(circle at 50% 85%, rgba(158,255,216,.08), transparent 0 24rem),
+        linear-gradient(180deg, #06101d 0%, #0a1426 45%, #07111f 100%);
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    body::before{
+      opacity:.42;
+      background-image:
+        radial-gradient(2px 2px at 14% 18%, rgba(255,255,255,.9), transparent 60%),
+        radial-gradient(1.5px 1.5px at 23% 78%, rgba(255,255,255,.8), transparent 60%),
+        radial-gradient(2px 2px at 48% 27%, rgba(255,255,255,.85), transparent 60%),
+        radial-gradient(1.5px 1.5px at 63% 14%, rgba(255,255,255,.7), transparent 60%),
+        radial-gradient(2px 2px at 76% 62%, rgba(255,255,255,.85), transparent 60%),
+        radial-gradient(1.5px 1.5px at 89% 24%, rgba(255,255,255,.8), transparent 60%),
+        radial-gradient(1.5px 1.5px at 72% 86%, rgba(255,255,255,.65), transparent 60%),
+        radial-gradient(2px 2px at 34% 61%, rgba(255,255,255,.9), transparent 60%);
+      animation: drift 24s linear infinite;
+    }
+
+    body::after{
+      background:
+        linear-gradient(transparent 0 90%, rgba(255,255,255,.03)),
+        radial-gradient(circle at center, rgba(255,255,255,.03), transparent 62%);
+      mix-blend-mode:screen;
+    }
+
+    @keyframes drift{
+      from{transform:translateY(0)}
+      50%{transform:translateY(-12px)}
+      to{transform:translateY(0)}
+    }
+
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+    a:hover{text-decoration:underline}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 2rem));
+      margin-inline:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter: blur(12px);
+      background:rgba(6,16,29,.55);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .topbar-inner{
+      width:min(var(--max), calc(100% - 2rem));
+      margin-inline:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:.85rem 0;
+    }
+
+    .brand{
+      font-weight:700;
+      letter-spacing:.02em;
+      color:var(--text);
+      white-space:nowrap;
+    }
+
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.9rem;
+      font-size:.95rem;
+    }
+
+    .nav a{
+      color:var(--muted);
+    }
+
+    .hero{
+      padding:5.5rem 0 3rem;
+    }
+
+    .hero-shell{
+      position:relative;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        var(--panel);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:3rem;
+      isolation:isolate;
+    }
+
+    .hero-shell::before{
+      content:"";
+      position:absolute;
+      inset:auto -8rem -8rem auto;
+      width:18rem;
+      height:18rem;
+      background:radial-gradient(circle, rgba(120,201,255,.30), transparent 68%);
+      filter:blur(10px);
+      z-index:-1;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.45rem .8rem;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:.9rem;
+      background:rgba(255,255,255,.03);
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:.55rem;
+      height:.55rem;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 0 12px rgba(120,201,255,.45);
+    }
+
+    h1{
+      font-size:clamp(2.4rem, 5vw, 4.4rem);
+      line-height:1.06;
+      margin:1rem 0 .85rem;
+      letter-spacing:-.04em;
+      max-width:11ch;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:62ch;
+      font-size:1.05rem;
+      color:var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.9rem;
+      margin-top:1.6rem;
+    }
+
+    .button{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.8rem 1rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:600;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+
+    .button.primary{
+      background:linear-gradient(135deg, rgba(120,201,255,.22), rgba(198,140,255,.18));
+      border-color:rgba(120,201,255,.28);
+    }
+
+    section{
+      padding:1rem 0 2.5rem;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:1rem;
+      margin-bottom:1rem;
+    }
+
+    h2{
+      margin:0;
+      font-size:clamp(1.5rem, 2vw, 2rem);
+      letter-spacing:-.03em;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      max-width:44ch;
+      font-size:.98rem;
+    }
+
+    .members{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:1rem;
+    }
+
+    .member{
+      position:relative;
+      padding:1.15rem 1.1rem 1rem;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        var(--panel-strong);
+      box-shadow:var(--shadow);
+      transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      min-height:100%;
+    }
+
+    .member:hover{
+      transform:translateY(-4px);
+      border-color:rgba(120,201,255,.35);
+      box-shadow:0 24px 50px rgba(0,0,0,.33);
+    }
+
+    .member::before{
+      content:"";
+      position:absolute;
+      inset:0 auto auto 0;
+      width:100%;
+      height:3px;
+      border-radius:20px 20px 0 0;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      opacity:.95;
+    }
+
+    .member h3{
+      margin:.15rem 0 .4rem;
+      font-size:1.1rem;
+      line-height:1.25;
+      letter-spacing:-.02em;
+    }
+
+    .member h3 a{
+      color:var(--text);
+      text-decoration:none;
+    }
+
+    .member h3 a:hover{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    .role{
+      font-size:.92rem;
+      color:#d9e6fa;
+      margin-bottom:.55rem;
+      opacity:.92;
+    }
+
+    .member p{
+      margin:0;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .chip{
+      display:inline-block;
+      margin-top:.85rem;
+      padding:.32rem .62rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      color:#dbeafe;
+      font-size:.78rem;
+      letter-spacing:.02em;
+      background:rgba(255,255,255,.03);
+    }
+
+    .contact{
+      margin-top:.5rem;
+    }
+
+    .contact-card{
+      display:grid;
+      grid-template-columns:1.4fr auto;
+      gap:1rem;
+      align-items:center;
+      padding:1.4rem;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(120,201,255,.08), rgba(198,140,255,.06)),
+        var(--panel);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-card h3{
+      margin:0 0 .3rem;
+      font-size:1.25rem;
+    }
+
+    .contact-card p{
+      margin:.25rem 0;
+      color:var(--muted);
+    }
+
+    .counter{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.75rem .9rem;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      min-width:7rem;
+    }
+
+    .counter img{ height:40px; display:block; }
+
+    footer{
+      padding:0 0 2rem;
+      color:var(--muted);
+      font-size:.92rem;
+      text-align:center;
+    }
+
+    .small-note{
+      opacity:.9;
+    }
+
+    @media (max-width: 760px){
+      .hero-shell{padding:1.4rem}
+      .contact-card{grid-template-columns:1fr}
+      .topbar-inner{align-items:flex-start}
+    }
+  </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">UCLA Space Plasma Research Group</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#members">Members</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  <h1>Space Plasma Research Group @ UCLA</h1>
-  <h2>Members:</h2>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="eyebrow">Planetary plasma • magnetospheres • space weather</div>
+          <h1>Space Plasma Research Group @ UCLA</h1>
+          <p>
+            We study magnetic fields, plasma environments, and solar-wind interactions across Earth and planetary systems,
+            combining observations, theory, and modeling to understand space environments from the Moon to Mars and beyond.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#members">Meet the group</a>
+            <a class="button" href="#contact">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <p><A HREF="https://sites.google.com/site/peterchiresearch/">Peter Chi</A>: Research interests: Magnetoseismology and terrestrial/Mars magnetosphere; Seismic insights within geomagnetic and ionospheric data; Lunar Magnetism</p>
+    <section id="members">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Members</h2>
+          </div>
+          <p>
+            A collaborative group spanning magnetospheric physics, planetary plasma environments, instrumentation,
+            modeling, and mission data analysis.
+          </p>
+        </div>
 
-  <p><A HREF="https://www.athabascau.ca/science-and-technology/our-people/martin-connors.html">Martin Connors</A>: Research interests: Geomagnetism; Geo-electricity and space weather effects; Instrumentation; Asteroid astronomy; History of astronomy; Online teaching; Instructional laboratory techniques</p>
+        <div class="members">
+          <article class="member">
+            <h3><a href="https://sites.google.com/site/peterchiresearch/" target="_blank" rel="noopener">Peter Chi</a></h3>
+            <div class="role">Faculty / Researcher</div>
+            <p>Research interests: Magnetoseismology and terrestrial/Mars magnetosphere; seismic insights within geomagnetic and ionospheric data; lunar magnetism.</p>
+            <span class="chip">Magnetoseismology</span>
+          </article>
 
-  <p><A HREF="https://www.psi.edu/staff/profile/liz-jensen/">Elizabeth A. Jensen</A>: Research interests: Solar Particles, Solar Wind, Earth, Moon, Mercury, Vesta; Remote Sensing, Spectroscopy, Heliophysics, Education/Public Outreach, Safety</p>
+          <article class="member">
+            <h3><a href="https://www.athabascau.ca/science-and-technology/our-people/martin-connors.html" target="_blank" rel="noopener">Martin Connors</a></h3>
+            <div class="role">Collaborator</div>
+            <p>Research interests: Geomagnetism; geo-electricity and space weather effects; instrumentation; asteroid astronomy; history of astronomy; online teaching; instructional laboratory techniques.</p>
+            <span class="chip">Geomagnetism</span>
+          </article>
 
-  <p><A HREF="indxJia.html">Yingdong Jia</A>: Research interests: Plasma environment at Comets, asteriods; solar wind-magnetosphere interactions; MHD, Hybrid, PIC modeling</p>
+          <article class="member">
+            <h3><a href="https://www.psi.edu/staff/profile/liz-jensen/" target="_blank" rel="noopener">Elizabeth A. Jensen</a></h3>
+            <div class="role">Collaborator</div>
+            <p>Research interests: Solar particles, solar wind, Earth, Moon, Mercury, and Vesta; remote sensing, spectroscopy, heliophysics, education/public outreach, and safety.</p>
+            <span class="chip">Heliophysics</span>
+          </article>
 
-  <p><A HREF="https://epss.ucla.edu/william-leung/">William Leung</A>: Applications Programmer: Space mission data processing</p>
+          <article class="member">
+            <h3><a href="indxJia.html">Yingdong Jia</a></h3>
+            <div class="role">Researcher</div>
+            <p>Research interests: Plasma environments at comets and asteroids; solar wind–magnetosphere interactions; MHD, hybrid, and PIC modeling.</p>
+            <span class="chip">Hybrid / PIC</span>
+          </article>
 
-  <p><A HREF="https://epss.ucla.edu/yingjuan-ma/">Yingjuan Ma</A>: Research interests: Plasma environment at Mars, Venus, and Titan; MHD modeling</p>
+          <article class="member">
+            <h3><a href="https://epss.ucla.edu/william-leung/" target="_blank" rel="noopener">William Leung</a></h3>
+            <div class="role">Applications Programmer</div>
+            <p>Focus: Space mission data processing and scientific software support.</p>
+            <span class="chip">Data Systems</span>
+          </article>
 
-  <p><A HREF="https://faculty.epss.ucla.edu/~ctrussell/">Christopher T. Russell</A>: Research interests: Energy flow from the sun through the solar wind and into the terrestrial and planetary magnetospheres, both intrinsic and induced, and how this energy is dissipated within these magnetospheres</p>
+          <article class="member">
+            <h3><a href="https://epss.ucla.edu/yingjuan-ma/" target="_blank" rel="noopener">Yingjuan Ma</a></h3>
+            <div class="role">Faculty / Researcher</div>
+            <p>Research interests: Plasma environments at Mars, Venus, and Titan; global MHD modeling.</p>
+            <span class="chip">Planetary MHD</span>
+          </article>
 
-  <p><A HREF="https://epss.ucla.edu/hanying-wei/">Hanying Wei</A>: Research interests: ICWs, foreshocks, <A HREF="https://science.nasa.gov/mission/stereo/">STEREO</A>; <A HREF="https://mms.gsfc.nasa.gov/">MMS</A>, <A HREF="https://science.nasa.gov/mission/psyche/">Psyche</A>, <A HREF="https://science.nasa.gov/mission/imap/">IMAP</A></p>
+          <article class="member">
+            <h3><a href="https://faculty.epss.ucla.edu/~ctrussell/" target="_blank" rel="noopener">Christopher T. Russell</a></h3>
+            <div class="role">Faculty / Researcher</div>
+            <p>Research interests: Energy flow from the Sun through the solar wind and into terrestrial and planetary magnetospheres, both intrinsic and induced, and how this energy is dissipated.</p>
+            <span class="chip">Solar Wind Coupling</span>
+          </article>
 
-  <p><A HREF="https://epss.ucla.edu/xiaoyan-zhou/">Xiaoyan Zhou</A>: Research interests: Aurora, IP shocks</p>
+          <article class="member">
+            <h3><a href="https://epss.ucla.edu/hanying-wei/" target="_blank" rel="noopener">Hanying Wei</a></h3>
+            <div class="role">Researcher</div>
+            <p>Research interests: ICWs, foreshocks,
+              <a href="https://science.nasa.gov/mission/stereo/" target="_blank" rel="noopener">STEREO</a>,
+              <a href="https://mms.gsfc.nasa.gov/" target="_blank" rel="noopener">MMS</a>,
+              <a href="https://science.nasa.gov/mission/psyche/" target="_blank" rel="noopener">Psyche</a>, and
+              <a href="https://science.nasa.gov/mission/imap/" target="_blank" rel="noopener">IMAP</a>.
+            </p>
+            <span class="chip">Foreshocks</span>
+          </article>
 
+          <article class="member">
+            <h3><a href="https://epss.ucla.edu/xiaoyan-zhou/" target="_blank" rel="noopener">Xiaoyan Zhou</a></h3>
+            <div class="role">Researcher</div>
+            <p>Research interests: Aurora and interplanetary shocks.</p>
+            <span class="chip">Aurora / IP Shocks</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <div class="contact-card">
+          <div>
+            <h3>Contact Us</h3>
+            <p><strong>Email:</strong> yingdong at ucla.edu</p>
+            <p><strong>Address:</strong> Slichter Hall 6873, 595 Charles E Young Dr E, Los Angeles, CA 90095</p>
+            <p class="small-note">Bookmark this page to keep an eye on our research updates.</p>
+          </div>
+
+          <a href="https://hits.sh/igppmag.github.io/" class="counter" aria-label="Visitor counter">
+            <img src="https://hits.sh/igppmag.github.io.svg?style=flat-square&label=visits" alt="visits">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © UCLA Space Plasma Research Group
+    </div>
+  </footer>
 </body>
-
-<section id="contact" class="about contact-row">
-  <div class="contact-info">
-    <h2>Contact us</h2>
-    <p>yingdong at ucla.edu · Address: Slichter Hall 6873, 595 Charles E Young Dr E, Los Angeles, CA 90095.</p>
-<p>Bookmark this to keep an eye on our research updates!</p>
-
-  </div>
-
-  <a href="https://hits.sh/igppmag.github.io/" class="counter">
-    <img
-      src="https://hits.sh/igppmag.github.io.svg?style=flat-square&label=visits"
-      alt="visits">
-  </a>
-</section>
-
-<style>
-  .contact-row{
-    display:flex; align-items:center; gap:1rem; margin:1rem 0; flex-wrap:wrap;
-  }
-  .contact-info{ flex:1 1 auto; }
-  .counter img{ height:40px; display:block; }
-
-  /* Keep a single row on wider screens, wrap on small ones */
-  @media (min-width: 640px){
-    .contact-row{ flex-wrap:nowrap; }
-  }
-</style>
-  
-</HTML>
+</html>
