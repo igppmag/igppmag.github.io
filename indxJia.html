@@ -34,11 +34,11 @@
       \\[6pt]
     \rho\,\frac{\partial \mathbf{u}}{\partial t}
       + \rho\,(\mathbf{u}\!\cdot\!\nabla)\mathbf{u}
-      = -\nabla P - \nabla P_e + \mathbf{G} + \mathbf{J}\times\mathbf{B}
+      = -\nabla p - \nabla p_e + \mathbf{G} + \mathbf{J}\times\mathbf{B}
       \\[6pt]
-    \frac{\partial P}{\partial t}
-      + (\mathbf{u}\!\cdot\!\nabla)P
-      + \gamma\,P\,\nabla\!\cdot\!\mathbf{u}
+    \frac{\partial p}{\partial t}
+      + (\mathbf{u}\!\cdot\!\nabla)p
+      + \gamma\,p\,\nabla\!\cdot\!\mathbf{u}
       = \mathbf{G}\!\cdot\!\mathbf{u} + \eta\,J^2
       \\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} = -\,\nabla\times\mathbf{E}
@@ -57,7 +57,7 @@
     \begin{aligned}
     \mathbf{E} &= \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B}
                  + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e}
-                 - \frac{\nabla P_e}{e\,n_e}, &
+                 - \frac{\nabla p_e}{e\,n_e}, &
     \varepsilon = \frac{p}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}, & \quad n_e = n = \frac{\rho}{m},\\[4pt]
     \mathbf{J} &= \frac{1}{\mu_0}\,\nabla\times\mathbf{B}, & \mathbf{u}_e = \mathbf{u} - \frac{\mathbf{J}}{e\,n_e} = \mathbf{u} + \mathbf{u}_H.
     \end{aligned}
