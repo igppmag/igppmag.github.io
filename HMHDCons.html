@@ -20,7 +20,7 @@
 </head>
 <body>
 
-  <h1>Two-fluid MHD (ion fluid + electron fluid) Equations in conservative form</h1>
+  <h1>HMHD Equations in conservative form</h1>
   <div class="block">
     \[
     \begin{aligned}
@@ -40,17 +40,14 @@
         - \mathbf{B}\times\eta\,\mathbf{J}
       \right] &= 0
       \\[6pt]
-    \frac{\partial p_e}{\partial t} + \nabla\!\cdot(p_e\,\mathbf{u}_e)
-      &= (1-\gamma)(\,p_e\,\nabla\!\cdot\mathbf{u}_e-\eta J^2)
-      \\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} &= -\,\nabla\times\mathbf{E}
       
     \end{aligned}
     \]
   </div>
-  <p class="note">Notation: \(\mathbf{I}\) is the identity tensor. </p>
+  <p class="note">Notation: \(\mathbf{I}\) is the identity tensor, the \(p_e\) term is neglected in \(\mathbf{E}\). </p>
 
-  <h2>A more complete conservative form without neglecting the Pe terms:</h2>
+  <h2>The two-fluid MHD (ion fluid + electron fluid) equations without neglecting the \(p_e\) terms:</h2>
   <div class="block">
     \[
     \begin{aligned}
