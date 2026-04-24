@@ -24,8 +24,7 @@
 
   <h1>Religion: The Conservation Law</h1>
   <p class="note">Hall MHD models solve the following governing equations of ion mass density
-    \(\rho\), magnetic field \(\mathbf{B}\), ion bulk velocity \(\mathbf{u}\), ion thermal pressure \(p\),
-    and electron thermal pressure \(p_e\):</p>
+    \(\rho\), magnetic field \(\mathbf{B}\), ion bulk velocity \(\mathbf{u}\), total thermal pressure \(p_t=p_i+p_e\):</p>
 
   <div class="block">
     \[
@@ -34,11 +33,11 @@
       \\[6pt]
     \rho\,\frac{\partial \mathbf{u}}{\partial t}
       + \rho\,(\mathbf{u}\!\cdot\!\nabla)\mathbf{u}
-      = -\nabla p - \nabla p_e + \mathbf{G} + \mathbf{J}\times\mathbf{B}
+      = -\nabla p_t + \mathbf{G} + \mathbf{J}\times\mathbf{B}
       \\[6pt]
-    \frac{\partial p}{\partial t}
-      + (\mathbf{u}\!\cdot\!\nabla)p
-      + \gamma\,p\,\nabla\!\cdot\!\mathbf{u}
+    \frac{\partial p_t}{\partial t}
+      + (\mathbf{u}\!\cdot\!\nabla)p_t
+      + \gamma\,p_t\,\nabla\!\cdot\!\mathbf{u}
       = \mathbf{G}\!\cdot\!\mathbf{u} + \eta\,J^2
       \\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} = -\,\nabla\times\mathbf{E}
@@ -56,9 +55,7 @@
     \[
     \begin{aligned}
     \mathbf{E} &= \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B}
-                 + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e}
-                 - \frac{\nabla p_e}{e\,n_e}, &
-    \varepsilon = \frac{p}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}, & \quad n_e = n = \frac{\rho}{m},\\[4pt]
+                 + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e}, &
     \mathbf{J} &= \frac{1}{\mu_0}\,\nabla\times\mathbf{B}, & \mathbf{u}_e = \mathbf{u} - \frac{\mathbf{J}}{e\,n_e} = \mathbf{u} + \mathbf{u}_H.
     \end{aligned}
     \]
@@ -66,7 +63,7 @@
 
   <p class="note">
     Notation: \(\mathbf{I}\) is the identity tensor, \(B^2=\mathbf{B}\cdot\mathbf{B}\),
-    \(\mu_0\) is the vacuum permeability, \(e\) is the elementary charge, \(\eta\) is the resistivity, and \(\gamma\) is the adiabatic index. </p>
+    \(\mu_0\) is the vacuum permeability, \(e\) is the elementary charge, \(\eta\) is the resistivity, n_e = n = \frac{\rho}{m},\\[4pt], and \(\gamma\) is the adiabatic index. The \(p_e\) term is neglected in the \(\mathbf{E}\) equation.</p>
   <p>
     Most ion inertial length \(d_i\) formulas are written in cgs, including wiki. I write it in SI here: \(\lambda_i=\sqrt{ \frac{m_i}{\mu_0 e^2 n_i} }\)[Toth et al. 2017]. </p>
 
