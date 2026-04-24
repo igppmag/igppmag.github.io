@@ -34,7 +34,7 @@
       \\[6pt]
     \frac{\partial \varepsilon}{\partial t}
       + \nabla\!\cdot\!\left[
-        \!\left(\varepsilon + p - \frac{B^2}{2\mu_0}\right)\mathbf{u}
+        \!\left(\varepsilon + p_t - \frac{B^2}{2\mu_0}\right)\mathbf{u}
         + \frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
         - \mathbf{B}\times\eta\,\mathbf{J}
       \right] &= 0
@@ -44,7 +44,7 @@
     \end{aligned}
     \]
   </div>
-  <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor; <br>   \varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}. </p>
+  <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor; <br>   \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}.\) </p>
 
   <h2>The two-fluid MHD (ion fluid + electron fluid) equations without neglecting the \(p_e\) terms:</h2>
   <div class="block">
@@ -76,7 +76,7 @@
     \]
   </div>
 <p>
-Now input p is only ion thermal pressure \(p_i\), which is advanced by the ion total energy eqn in conservative form, with the electron energy eqn that advances electron thermal pressure \(p_e\). <br> \mathbf{E} = \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}.
+Now input p is only ion thermal pressure \(p_i\), which is advanced by the ion total energy eqn in conservative form, with the electron energy eqn that advances electron thermal pressure \(p_e\). <br> \(\mathbf{E} = \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}\).
 </p>
 
   <h2>Sometimes we may also play with these equations</h2>
