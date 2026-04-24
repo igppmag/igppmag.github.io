@@ -27,24 +27,27 @@
     \frac{\partial \rho}{\partial t} + \nabla\!\cdot(\rho\,\mathbf{u}) &= 0
       \\[6pt]
     \frac{\partial (\rho \mathbf{u})}{\partial t}
-      + \nabla\!\cdot\!\left[\;\mathbf{u}\,\rho\,\mathbf{u}
-      + \mathbf{I}\,p_t + \mathbf{I}\,\frac{B^2}{2\mu_0}
-      - \frac{\mathbf{B}\mathbf{B}}{\mu_0}\right]
+      + \nabla\!\cdot\!\left(\;\rho\,\mathbf{u}\,\mathbf{u}
+      + p_t \, \mathbf{I} + \frac{B^2}{2\mu_0}\,\mathbf{I}
+      - \frac{\mathbf{B}\mathbf{B}}{\mu_0}\right)
       &= \rho\,\mathbf{g}
       \\[6pt]
     \frac{\partial \varepsilon}{\partial t}
       + \nabla\!\cdot\!\left[
-        \!\left(\varepsilon + p_t - \frac{B^2}{2\mu_0}\right)\mathbf{u}
-        + \frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
-        - \mathbf{B}\times\eta\,\mathbf{J}
+        \!\left(\varepsilon + p_t + \frac{B^2}{2\mu_0}\right)\mathbf{u}
+        + \frac{ \mathbf{B}\mathbf{B}\!\cdot\!\mathbf{u} }{\mu_0}
+        + \eta\,\mathbf{J} \times \mathbf{B}
+        + \frac{\eta\,\mathbf{J} \times \mathbf{B}
       \right] &= 0
       \\[6pt]
-    \frac{\partial \mathbf{B}}{\partial t} &= -\,\nabla\times\mathbf{E}
-      
+    \frac{\partial \mathbf{B}}{\partial t} + \nabla\!\cdot\!(\mathbf{u} \mathbf{B} - 
+    \mathbf{B}\mathbf{u}) &= \frac{\eta \nabla^2 B}{\mu_0}
     \end{aligned}
     \]
+    }
   </div>
-  <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor; <br>   \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}.\) </p>
+  <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor;
+  \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}.\) </p>
 
   <h2>The two-fluid MHD (ion fluid + electron fluid) equations without neglecting the \(p_e\) terms:</h2>
   <div class="block">

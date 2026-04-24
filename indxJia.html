@@ -36,9 +36,9 @@
       = -\nabla p_t + \mathbf{G} + \mathbf{J}\times\mathbf{B}
       \\[6pt]
     \frac{\partial p_t}{\partial t}
-      + (\mathbf{u}\!\cdot\!\nabla)p_t
+      + \mathbf{u}\!\cdot\!\nabla p_t
       + \gamma\,p_t\,\nabla\!\cdot\!\mathbf{u}
-      = \mathbf{G}\!\cdot\!\mathbf{u} + \eta\,J^2
+      = (\gamma-1) (\mathbf{G}\!\cdot\!\mathbf{u} + \eta\,J^2)
       \\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} = -\,\nabla\times\mathbf{E}
       \\[6pt]
@@ -46,7 +46,7 @@
     \]
   </div>
 
-  <p class="note">Instead of the original form shown above, the BATSRUS code actrually solves the <A HREF="HMHDCons.html">conservative form</A> of these equations, by default.</p>
+  <p class="note">Hall term (\(\mathbf{J}\times\mathbf{B}\)) does no local work in this form. On the other hand, instead of the original form shown above, the BATSRUS code actrually solves the <A HREF="HMHDCons.html">conservative form</A> of these equations, by default.</p>
 
   <hr />
 
