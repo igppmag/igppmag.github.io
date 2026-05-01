@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>HMHD Governing Equations</title>
+  <title>HMHD Governing Equations in Conservative Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- MathJax for LaTeX rendering -->
   <script id="MathJax-script" async
@@ -34,17 +34,17 @@
       \\[6pt]
     \frac{\partial \varepsilon}{\partial t}
       + \nabla\!\cdot\!\left[
-        \!\left(\varepsilon + p_t \right)\mathbf{u}
+        \!\left(\varepsilon - \frac{B^2}{2\mu_0} + p_t \right)\mathbf{u}
         + \frac{ \mathbf{E}\times\mathbf{B} }{\mu_0}
-      \right] &= 0
+      \right] &= \rho\,\mathbf{g}\!\cdot\!\mathbf{u}
       \\[6pt]
-    \frac{\partial \mathbf{B}}{\partial t} + \nabla\!\cdot\!(\mathbf{u} \mathbf{B} - 
-    \mathbf{B}\mathbf{u}) &= \frac{\eta \nabla^2 B}{\mu_0}
+    \frac{\partial \mathbf{B}}{\partial t} + \nabla\!\cdot\!(\mathbf{u}_e \mathbf{B} - 
+    \mathbf{B}\mathbf{u}_e) &= -\nabla\times(\eta\,\mathbf{J})
     \end{aligned}
     \]
   </div>
   <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor;
-  \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}.\) </p>
+  \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}\) is the total energy density; \(\mathbf{J}=\nabla\times\mathbf{B}/\mu_0\); and \(\mathbf{u}_e=\mathbf{u}-\mathbf{J}/(e n_e)\). The induction equation is written in Hall form, so the ideal magnetic advection uses the electron velocity. For constant \(\eta\) and \(\nabla\cdot\mathbf{B}=0\), \(-\nabla\times(\eta\mathbf{J})=(\eta/\mu_0)\nabla^2\mathbf{B}\). The gravitational work term is shown explicitly; if gravitational potential energy is included in \(\varepsilon\), this source term should be modified accordingly. </p>
 
   <h2>The two-fluid MHD (ion fluid + electron fluid) equations with E expanded:</h2>
   <div class="block">
@@ -67,7 +67,7 @@
         - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
         - \frac{\mathbf{B}}{\mu_0} \times\left( \eta\,\mathbf{J}
         - \frac{\nabla p_e}{e\,n_e} \right)
-      \right] &= 0
+      \right] &= \rho\,\mathbf{g}\!\cdot\!\mathbf{u}
       \\[6pt]
     \frac{\partial p_e}{\partial t} + \nabla\!\cdot(p_e\,\mathbf{u}_e)
       &= (1-\gamma)(\,p_e\,\nabla\!\cdot\mathbf{u}_e-\eta J^2)
@@ -78,7 +78,7 @@
     \]
   </div>
 <p>
-Now input p is only ion thermal pressure \(p_i\), which is advanced by the ion total energy eqn in conservative form, with the electron energy eqn that advances electron thermal pressure \(p_e\). The complete form of electric field: \(\mathbf{E} = \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}\).
+In this form, the input pressure is the ion thermal pressure \(p_i\), which is advanced with the ion total energy equation, while the electron pressure \(p_e\) is advanced separately. The electric field is \(\mathbf{E} = \eta\,\mathbf{J} -\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}\).
 </p>
 
   <h2>Sometimes we may also play with these equations</h2>

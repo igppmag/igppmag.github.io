@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>The belief: TFMHD Equations</title>
+  <title>The Religin: Conservation Law</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- MathJax for LaTeX rendering -->
   <script id="MathJax-script" async
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-  <h1>Religion: The Conservation Law</h1>
+  <h1>The Religin: Conservation Law</h1>
   <p class="note">Hall MHD models solve the following governing equations of ion mass density
     \(\rho\), magnetic field \(\mathbf{B}\), ion bulk velocity \(\mathbf{u}\), total thermal pressure \(p_t=p_i+p_e\):</p>
 
@@ -38,7 +38,7 @@
     \frac{\partial p_t}{\partial t}
       + \mathbf{u}\!\cdot\!\nabla p_t
       + \gamma\,p_t\,\nabla\!\cdot\!\mathbf{u}
-      = (\gamma-1) (\mathbf{G}\!\cdot\!\mathbf{u} + \eta\,J^2)
+      = (\gamma-1)\,\eta\,J^2
       \\[6pt]
     \frac{\partial \mathbf{B}}{\partial t} = -\,\nabla\times\mathbf{E}
       \\[6pt]
@@ -46,7 +46,7 @@
     \]
   </div>
 
-  <p class="note">Hall term (\(\mathbf{J}\times\mathbf{B}\)) does no local work in this form. On the other hand, instead of the original form shown above, the BATSRUS code actrually solves the <A HREF="HMHDCons.html">conservative form</A> of these equations, by default.</p>
+  <p class="note">The Hall electric-field term, \((\mathbf{J}\times\mathbf{B})/(e n_e)\), does no direct electromagnetic work because \(\mathbf{J}\cdot(\mathbf{J}\times\mathbf{B})=0\). The Lorentz force, \(\mathbf{J}\times\mathbf{B}\), can still exchange energy with the ion bulk flow through the momentum equation. BATSRUS typically solves the <A HREF="HMHDCons.html">conservative form</A> of these equations.</p>
 
   <hr />
 
@@ -56,8 +56,9 @@
   \begin{aligned}
   \mathbf{E} &= \eta\,\mathbf{J} - \mathbf{u}\times\mathbf{B}
                + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e}, \\
-  n_e &= n = \frac{\rho}{m}, \\
+  n_e &= n_i = \frac{\rho}{m_i} \quad \text{(single singly charged ion species)}, \\
   \mathbf{J} &= \frac{1}{\mu_0}\,\nabla\times\mathbf{B}, \\
+  \mathbf{u}_H &= -\frac{\mathbf{J}}{e\,n_e}, \\
   \mathbf{u}_e &= \mathbf{u} - \frac{\mathbf{J}}{e\,n_e}
                = \mathbf{u} + \mathbf{u}_H.
   \end{aligned}
@@ -66,9 +67,9 @@
 
   <p class="note">
     Notation: \(\mathbf{I}\) is the identity tensor, \(B^2=\mathbf{B}\cdot\mathbf{B}\),
-    \(\mu_0\) is the vacuum permeability, \(e\) is the elementary charge, \(\eta\) is the resistivity, and \(\gamma\) is the adiabatic index. The \(p_e\) term is neglected in the \(\mathbf{E}\) equation.</p>
+    \(\mu_0\) is the vacuum permeability, \(e\) is the elementary charge, \(\eta\) is the resistivity, \(\gamma\) is the adiabatic index, and \(\mathbf{G}\) is an external force density. The electron pressure-gradient term, \(-\nabla p_e/(e n_e)\), is omitted in the simplified Ohm's law above. If \(\mathbf{G}\cdot\mathbf{u}\) represents direct thermal heating rather than mechanical work, it should be added explicitly as a heating source.</p>
   <p>
-    Most ion inertial length \(d_i\) formulas are written in cgs, including wiki. I write it in SI here: \(\lambda_i=\sqrt{ \frac{m_i}{\mu_0 e^2 n_i} }\)[Toth et al. 2017]. </p>
+    Many commonly quoted ion inertial length \(d_i\) formulas are written in cgs, including wiki. I write it in SI here: \(\lambda_i=\sqrt{ \frac{m_i}{\mu_0 e^2 n_i} }\)[Toth et al. 2017]. </p>
 
   <h2><A HREF="Calc.html">Fancy Plasma parameter Calculators</A></h2>
 
@@ -92,7 +93,7 @@
 
 <body>Bookmark this to keep an eye on my project updates!</body>
   
-<p><A HREF="https://svs.gsfc.nasa.gov">More Visualizations: thousands by NASA.</A> I recommend 3570, 4188, 5502, 5425, 14202, 2387. What I don't find inforative enough: 14907; 5536</p>
+<p><A HREF="https://svs.gsfc.nasa.gov">More Visualizations: thousands by NASA.</A> I recommend 3570, 4188, 5502, 5425, 14202, 2387. What I do not find informative enough: 14907; 5536</p>
 
 <p><A HREF="https://science.nasa.gov/photojournal/">PICs 4 ur inspiration</A></p>
 
