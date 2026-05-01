@@ -20,7 +20,7 @@
 </head>
 <body>
 
-  <h1>HMHD Equations in conservative form</h1>
+  <h1>HMHD equations in conservative form</h1>
   <div class="block">
     \[
     \begin{aligned}
@@ -42,12 +42,11 @@
     \mathbf{B}\mathbf{u}) &= \frac{\eta \nabla^2 B}{\mu_0}
     \end{aligned}
     \]
-    }
   </div>
   <p class="note">Notation: \(\mathbf{I}\) is the 3\(\times\)3 identity tensor;
   \(\varepsilon = \frac{p_t}{\gamma-1} + \frac{\rho\,u^2}{2} + \frac{B^2}{2\mu_0}.\) </p>
 
-  <h2>The two-fluid MHD (ion fluid + electron fluid) equations without neglecting the \(p_e\) terms:</h2>
+  <h2>The two-fluid MHD (ion fluid + electron fluid) equations with E expanded:</h2>
   <div class="block">
     \[
     \begin{aligned}
@@ -64,8 +63,10 @@
       + \nabla\!\cdot\!\left[
         \!\left(\varepsilon_i + p_i - \frac{B^2}{2\mu_0}\right)\mathbf{u}
         + \!\frac{ \gamma \, p_e}{\gamma-1} \mathbf{u}_e
-        + \frac{\left(\mathbf{I}\,B^2 - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
-        - \mathbf{B}\times\left( \eta\,\mathbf{J} - \frac{\nabla p_e}{e\,n_e} \right)
+        + \frac{\left(\mathbf{I}\,B^2
+        - \mathbf{B}\mathbf{B}\right)}{\mu_0}\!\cdot\!\mathbf{u}_e
+        - \frac{\mathbf{B}}{\mu_0} \times\left( \eta\,\mathbf{J}
+        - \frac{\nabla p_e}{e\,n_e} \right)
       \right] &= 0
       \\[6pt]
     \frac{\partial p_e}{\partial t} + \nabla\!\cdot(p_e\,\mathbf{u}_e)
@@ -77,7 +78,7 @@
     \]
   </div>
 <p>
-Now input p is only ion thermal pressure \(p_i\), which is advanced by the ion total energy eqn in conservative form, with the electron energy eqn that advances electron thermal pressure \(p_e\). <br> \(\mathbf{E} = \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}\).
+Now input p is only ion thermal pressure \(p_i\), which is advanced by the ion total energy eqn in conservative form, with the electron energy eqn that advances electron thermal pressure \(p_e\). The complete form of electric field: \(\mathbf{E} = \eta\,\mathbf{J} -\,\mathbf{u}\times\mathbf{B} + \frac{\mathbf{J}\times\mathbf{B}}{e\,n_e} - \frac{\nabla p_e}{e\,n_e}\).
 </p>
 
   <h2>Sometimes we may also play with these equations</h2>
